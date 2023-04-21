@@ -181,6 +181,7 @@ section#skillInformation
 		{
 			display: none;
 			flex-flow: row wrap;
+			justify-content: center;
 			width: 100%;
 			height: 10rem;
 		}
@@ -199,4 +200,11 @@ section#skillInformation
 				width: 5rem;
 				height: 5rem;
 				margin: 0.5rem;
+			}
+
+			section#skillInformation div#characterSkill div#skillDescription span
+			{
+				text-align: center;
+				font-size: 1.2rem;
+				line-height: 2rem;
 			}
