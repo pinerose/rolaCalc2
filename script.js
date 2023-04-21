@@ -49,11 +49,11 @@ for (let x in artifacts)
 }
 
 let job = ''
-let comboValue = ''
-let sharpnessValue = ''
-let focusValue = ''
-let woundValue = ''
-let attackValue = ''
+let comboValue = 0
+let sharpnessValue = 0
+let focusValue = 0
+let woundValue = 0
+let attackValue = 0
 let enhanceBuff = ''
 let superEnhanceBuff = ''
 let frenzyBuff = ''
@@ -63,7 +63,7 @@ let enemyFrenzyBuff = ''
 let awakeningBuff = ''
 let disgustDebuff = ''
 let faintingDebuff = ''
-let defenseValue = ''
+let defenseValue = 0
 let armorBuff = ''
 let lethargyDebuff = ''
 
@@ -74,27 +74,27 @@ form.addEventListener('submit', (event) => {
 	event.preventDefault();
 
 	// 폼 데이터 가져오기
-    const job = form.querySelector('#job').value;
+    job = form.querySelector('#job').value;
 
-    const comboValue = parseInt(form.querySelector('#stat-combo-value').value);
-    const sharpnessValue = parseInt(form.querySelector('#stat-sharpness-value').value);
-    const focusValue = parseInt(form.querySelector('#stat-focus-value').value);
-    const woundValue = parseInt(fselector('#stat-wound-value').value);
+    comboValue = parseInt(form.querySelector('#stat-combo-value').value);
+    sharpnessValue = parseInt(form.querySelector('#stat-sharpness-value').value);
+    focusValue = parseInt(form.querySelector('#stat-focus-value').value);
+    woundValue = parseInt(fselector('#stat-wound-value').value);
 
-    const attackValue = parseInt(form.querySelector('#stat-attack-value').value);
-    const enhanceBuff = form.querySelector('#enhance-buff').checked;
-    const superEnhanceBuff = form.querySelector('#super-enhance-buff').checked;
-    const frenzyBuff = form.querySelector('#frenzy-buff').checked;
-    const criticalHit = form.querySelector('#critical-hit').checked;
-    const defenselessDebuff = form.querySelector('#defenseless-debuff').checked;
-    const enemyFrenzyBuff = form.querySelector('#enemy-frenzy-buff').checked;
-    const awakeningBuff = form.querySelector('#awakening-buff').checked;
-    const disgustDebuff = form.querySelector('#disgust-debuff').checked;
-    const faintingDebuff = fselector('#fainting-debuff').checked;
+    attackValue = parseInt(form.querySelector('#stat-attack-value').value);
+    enhanceBuff = form.querySelector('#enhance-buff').checked;
+    superEnhanceBuff = form.querySelector('#super-enhance-buff').checked;
+    frenzyBuff = form.querySelector('#frenzy-buff').checked;
+    criticalHit = form.querySelector('#critical-hit').checked;
+    defenselessDebuff = form.querySelector('#defenseless-debuff').checked;
+    enemyFrenzyBuff = form.querySelector('#enemy-frenzy-buff').checked;
+    awakeningBuff = form.querySelector('#awakening-buff').checked;
+    disgustDebuff = form.querySelector('#disgust-debuff').checked;
+    faintingDebuff = fselector('#fainting-debuff').checked;
 
-    const defenseValue = parseInt(fselector('#stat-defense-value').value);
-    const armorBuff = fselector('#armor-buff').checked;
-    const lethargyDebuff = fselector('#lethargy-debuff').checked;
+    defenseValue = parseInt(fselector('#stat-defense-value').value);
+    armorBuff = fselector('#armor-buff').checked;
+    lethargyDebuff = fselector('#lethargy-debuff').checked;
 
     // 계수 / 추뎀 계산
     variables.damageMultiplier = Number((1 + (0.1 * attackValue) + 
@@ -149,6 +149,26 @@ form.addEventListener('submit', (event) => {
     			classes[x][y][z].otherdefense = Math.floor(((classes[x][y][z].otherdefense + variables.additionalDefense) * variables.defenseMultiplier).toFixed(2));
     			classes[x][y][z].secondMindmg = Math.floor(((classes[x][y][z].secondMindmg + variables.additionalDamageForSecond) * variables.damageMultiplier).toFixed(2));
     			classes[x][y][z].secondMaxdmg = Math.floor(((classes[x][y][z].secondMaxdmg + variables.additionalDamageForSecond) * variables.damageMultiplier).toFixed(2));
+    			switch (classes[x][y][z].skillname)
+    			{
+    			case '경계 태세':
+    				classes[x][y][z].reflection = classes[x][y][z].baseReflection;
+
+    				classes[x][y][z].reflection = Math.floor(((classes[x][y][z].reflection + variables.additionalReflection + comboValue) * variables.reflectionMultiplier).toFixed(2));
+    				break;
+    			case '회전방어':
+    				classes[x][y][z].defense = classes[x][y][z].baseDefense;
+
+    				classes[x][y][z].defense = Math.floor(((classes[x][y][z].defense + variables.additionalDefense + comboValue) * variables.defenseMultiplier).toFixed(2));
+    				break;
+    			case '혼신의 일격':
+    				classes[x][y][z].mindmg = classes[x][y][z].baseMindmg;
+    				classes[x][y][z].maxdmg = classes[x][y][z].baseMaxdmg;
+
+    				classes[x][y][z].mindmg = Math.floor(((classes[x][y][z].mindmg + variables.additionalDamage + comboValue * 5) * variables.damageMultiplier).toFixed(2));
+    				classes[x][y][z].maxdmg = Math.floor(((classes[x][y][z].maxdmg + variables.additionalDamage + comboValue * 5) * variables.damageMultiplier).toFixed(2));
+    				break;
+    			}
     		}
     	}
     }
@@ -180,18 +200,18 @@ function Skills(charClass, skillname, mindmg, maxdmg, reflection, defense, descF
 let 횡베기 = new Skills('워리어', '횡베기', 6, 10, NaN, NaN, function() { return `적 전체에게 ${this.secondMindmg} ~ ${this.secondMaxdmg}의 피해를 입힙니다.`});
 let 타오르는투지 = new Skills('워리어', '타오르는 투지', NaN, NaN, NaN, NaN, function() { return '적을 처치하면 1의 행동력을 돌려받습니다.'});
 let 약점노리기 = new Skills('워리어', '약점 노리기', 12, 18, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해와 1의 출혈을 부여합니다. 사거리 2.`})
-let 가드브레이크 = new Skills('워리어', '가드 브레이크', NaN, NaN, NaN, NaN, function() { return '공격으로 적의 방어도와 철갑을 모두 제거하면 해당 적에게 2의 무기력과 1의 무방비를 부여합니다.'})
+let 가드브레이크 = new Skills('워리어', '가드 브레이크', NaN, NaN, NaN, NaN, function() { return '공격으로 적의 방어도와 철갑을 모두 제거하면 <br> 해당 적에게 2의 무기력과 1의 무방비를 부여합니다.'})
 let 카운터디펜스 = new Skills("워리어", '카운터 디펜스', NaN, NaN, 10, 18, function() { return `스스로에게 ${this.defense}의 방어도와 ${this.reflection}의 반격을 부여합니다.`})
 let 침착한대응 = new Skills("워리어", '침착한 대응', NaN, NaN, NaN, NaN, function() { return '방어력과 철갑을 모두 잃으면 1의 방어력을 얻습니다.'})
 let 전력방어 = new Skills("워리어", '전력방어', NaN, NaN, NaN, 50, function() { return `1의 공격력과 ${this.defense}의 방어도를 얻고 1의 방어력을 잃습니다.`})
-let 데들리스트라이크 = new Skills("워리어", '데들리 스트라이크', 48, 56, NaN, NaN, function() { return `가장 앞에 있는 적에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입힙니다.`});
+let 데들리스트라이크 = new Skills("워리어", '데들리 스트라이크', 48, 56, NaN, NaN, function() { return `최전방 적에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입힙니다.<br> 이 스킬로 적을 처치하면 1의 행동력을 추가로 돌려받습니다.`});
 let 전투회복 = new Skills("워리어", '전투회복', NaN, NaN, NaN, NaN, function() { return '전투가 끝나면 모든 아군이 12%의 체력을 회복합니다.'});
-let 악식 = new Skills("워리어", '악식', 10, 14, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입힙니다. 이 스킬로 적을 처치하면 10의 체력을 회복합니다. 사거리 2.`})
-let 생존기술 = new Skills("워리어", '생존 기술', NaN, NaN, NaN, NaN, '플레이어가 function() { return 영구적으로 공격력 1, 최대 체력 10, 면역 1을 얻습니다.');
-let 포식 = new Skills("워리어", '포식', 12, 16, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입힙니다. 이 스킬로 적을 처치하면 1sp를 얻습니다. 사거리 2.`})
+let 악식 = new Skills("워리어", '악식', 10, 14, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입힙니다. <br> 이 스킬로 적을 처치하면 10의 체력을 회복합니다. 사거리 2.`})
+let 생존기술 = new Skills("워리어", '생존 기술', NaN, NaN, NaN, NaN, function() { return '플레이어가 영구적으로 공격력 1, 최대 체력 10, 면역 1을 얻습니다.'});
+let 포식 = new Skills("워리어", '포식', 12, 16, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입힙니다. <br> 이 스킬로 적을 처치하면 1sp를 얻습니다. 사거리 2.`})
 let 공격 = new Skills("워리어", '공격', 11, 13, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입힙니다. 사거리 3.`})
 let 방어 = new Skills("워리어", '방어', NaN, NaN, NaN, 8, function() { return `스스로 ${this.defense}의 방어도를 얻습니다.`})
-let 더블슬래시 = new Skills("워리어", '더블 슬래시', 10, 16, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 1번, ${this.secondMindmg} ~ ${this.secondMaxdmg}의 피해를 1번 입힙니다. 사거리 2.`})
+let 더블슬래시 = new Skills("워리어", '더블 슬래시', 10, 16, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 1번, <br> ${this.secondMindmg} ~ ${this.secondMaxdmg}의 피해를 1번 입힙니다. 사거리 2.`})
 
 // 나이트 스킬
 
@@ -217,20 +237,20 @@ let 거인사냥 = new Skills('나이트', , , , , ``); */
 // 랜서 스킬
 let 몸풀기 = new Skills('랜서', '몸풀기', NaN, NaN, NaN, NaN, function() { return `즉시 2의 행동력과 2의 무방비를 얻습니다.`});
 let 급소찌르기 = new Skills('랜서', '급소 찌르기', 16, 24, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입히고 2의 심한 출혈을 부여합니다. 사거리 2.`});
-let 경계태세 = new Skills('랜서', '경계 태세', NaN, NaN, 10+comboValue, 20, function() { return `스스로 ${this.defense}의 방어도와 ${this.reflection}의 반격을 얻습니다.`});
+let 경계태세 = new Skills('랜서', '경계 태세', NaN, NaN, 10, 20, function() { return `스스로 ${this.defense}의 방어도와 ${this.reflection}의 반격을 얻습니다.`});
 let 방세전환 = new Skills('랜서', '방세 전환', NaN, NaN, NaN, 50, function() { return `스스로 2의 공격력과 ${this.defense}의 방어도를 얻고 1의 방어력을 잃습니다.`});
-let 트리플스탭 = new Skills('랜서', '트리플 스탭', 5, 9, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 1번, ${this.secondMindmg} ~ ${this.secondMaxdmg}의 피해를 2번 입힙니다. 사거리 2.`});
-let 깊이찌르기 = new Skills('랜서', '깊이 찌르기', 18, 26, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입힙니다. 바로 뒤 적도 같은 피해를 입습니다. 사거리 2.`});
+let 트리플스탭 = new Skills('랜서', '트리플 스탭', 5, 9, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 1번, <br> ${this.secondMindmg} ~ ${this.secondMaxdmg}의 피해를 2번 입힙니다. 사거리 2.`});
+let 깊이찌르기 = new Skills('랜서', '깊이 찌르기', 18, 26, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입힙니다. <br> 바로 뒤 적도 같은 피해를 입습니다. 사거리 2.`});
 let 준비만전 = new Skills('랜서', '준비 만전', NaN, NaN, NaN, NaN, function() { return `전투 시작 시 3의 연참을 얻습니다.`});
-let 사우전드드롭스 = new Skills('랜서', '사우전드 드롭스', 16, 24, NaN, NaN, function() { return `적 전체에게 ${this.secondMindmg} ~ ${this.secondMaxdmg}의 피해를 3번 입힙니다. 전투당 1회 사용 가능합니다.`});
+let 사우전드드롭스 = new Skills('랜서', '사우전드 드롭스', 16, 24, NaN, NaN, function() { return `적 전체에게 ${this.secondMindmg} ~ ${this.secondMaxdmg}의 피해를 3번 입힙니다. <br> 전투당 1회 사용 가능합니다.`});
 let 전진찌르기 = new Skills('랜서', '전진 찌르기', 10, 14, NaN, 10, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입히고 ${this.defense}의 방어도를 얻습니다. 사거리 2.`});
 let 정면돌파 = new Skills('랜서', '정면돌파', NaN, NaN, NaN, NaN, function() { return `플레이어가 전방으로 이동하면 1의 강화를 얻습니다.`});
-let 투창 = new Skills('랜서', '투창', 6, 8, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg} + 거리 * ${this.mindmg}의 피해를 입힙니다. 사거리 무제한.`}, 6);
+let 투창 = new Skills('랜서', '투창', 6, 8, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg} + 거리 * ${this.mindmg}의 피해를 입힙니다. <br> 사거리 무제한.`}, 6);
 let 아크로바틱 = new Skills('랜서', '아크로바틱', NaN, NaN, NaN, 10, function() { return `플레이어가 자신의 턴에 이동할 때마다 ${this.defense}의 방어도를 얻습니다.`});
-let 회전방어 = new Skills('랜서', '회전방어', NaN, NaN, NaN, 8 + comboValue, function() { return `스스로 ${this.defense}의 방어도를 얻습니다.`});
+let 회전방어 = new Skills('랜서', '회전방어', NaN, NaN, NaN, 8, function() { return `스스로 ${this.defense}의 방어도를 얻습니다.`});
 let 발경 = new Skills('랜서', '발경', 12, 18, NaN, NaN, function() { return `최전방의 적에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입히고 최후방으로 밀어냅니다. 해당 스킬은 확정적으로 치명타가 터지니 치명타 체크란을 채웠는지 확인해주세요.`});
 let 약점강타 = new Skills('랜서', '약점 강타', NaN, NaN, NaN, NaN, function() { return `적에게 치명타 피해를 입힐 때 1의 기절을 같이 부여합니다.`});
-let 혼신의일격 = new Skills('랜서', '혼신의 일격', 16 + comboValue * 5, 24 + comboValue * 5, NaN, NaN, function() { return `앞으로 1칸 이동한 뒤 최전방 적에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입히고 모든 연참을 소모합니다. 이동 불가 상태일 때에도 사용 가능합니다.`});
+let 혼신의일격 = new Skills('랜서', '혼신의 일격', 16, 24, NaN, NaN, function() { return `앞으로 1칸 이동한 뒤 최전방 적에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입히고 모든 연참을 소모합니다. 이동 불가 상태일 때에도 사용 가능합니다.`});
 
 
 let classes = 
