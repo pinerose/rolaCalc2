@@ -453,27 +453,24 @@ const selectClass = input =>
 
 	}
 }
+const selectSkill = input => {
+    for (let x of selectorA('#skillDescription > *')) {
+        x.parentNode.removeChild(x);
+    }
+    for (let x in classes) {
+        for (let y in classes[x]) {
+            for (let z in classes[x][y]) {
+                if (input == classes[x][y][z].skillname) {
+                    let name = document.createElement('span');
+                    name.innerHTML = classes[x][y][z].skillname;
+                    selector('#skillDescription').appendChild(name);
 
-const selectSkill = input =>
-{
-	for (let x of selectorA('#skillDescription > *'))
-	{
-		x.parentNode.removeChild(x);
-	}
-	for (let x in classes)
-	{
-		for (let y in classes[x])
-		{
-			for (let z in classes[x][y])
-			{
-				if (input == classes[x][y][z].skillname)
-				{
-					desc = document.createElement('span');
-					desc.innerHTML = classes[x][y][z].desc();
-					selector('#skillDescription').appendChild(desc);
-					selector('#skillDescription').style.display = 'flex';
-				}
-			}
-		}
-	}
+                    let desc = document.createElement('span');
+                    desc.innerHTML = classes[x][y][z].desc();
+                    selector('#skillDescription').appendChild(desc);
+                    selector('#skillDescription').style.display = 'flex';
+                }
+            }
+        }
+    }
 }
