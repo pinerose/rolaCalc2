@@ -248,9 +248,9 @@ let 정면돌파 = new Skills('랜서', '정면돌파', NaN, NaN, NaN, NaN, func
 let 투창 = new Skills('랜서', '투창', 6, 8, NaN, NaN, function() { return `단일 적 대상에게 ${this.mindmg} ~ ${this.maxdmg} + 거리 * ${this.mindmg}의 피해를 입힙니다. <br> 사거리 무제한.`}, 6);
 let 아크로바틱 = new Skills('랜서', '아크로바틱', NaN, NaN, NaN, 10, function() { return `플레이어가 자신의 턴에 이동할 때마다 ${this.defense}의 방어도를 얻습니다.`});
 let 회전방어 = new Skills('랜서', '회전방어', NaN, NaN, NaN, 8, function() { return `스스로 ${this.defense}의 방어도를 얻습니다.`});
-let 발경 = new Skills('랜서', '발경', 12, 18, NaN, NaN, function() { return `최전방의 적에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입히고 최후방으로 밀어냅니다. 해당 스킬은 확정적으로 치명타가 터지니 치명타 체크란을 채웠는지 확인해주세요.`});
+let 발경 = new Skills('랜서', '발경', 12, 18, NaN, NaN, function() { return `최전방의 적에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입히고 최후방으로 밀어냅니다. <br> 해당 스킬은 확정적으로 치명타가 터집니다. 치명타 체크란을 채웠는지 확인해주세요.`});
 let 약점강타 = new Skills('랜서', '약점 강타', NaN, NaN, NaN, NaN, function() { return `적에게 치명타 피해를 입힐 때 1의 기절을 같이 부여합니다.`});
-let 혼신의일격 = new Skills('랜서', '혼신의 일격', 16, 24, NaN, NaN, function() { return `앞으로 1칸 이동한 뒤 최전방 적에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입히고 모든 연참을 소모합니다. 이동 불가 상태일 때에도 사용 가능합니다.`});
+let 혼신의일격 = new Skills('랜서', '혼신의 일격', 16, 24, NaN, NaN, function() { return `앞으로 1칸 이동한 뒤 최전방 적에게 ${this.mindmg} ~ ${this.maxdmg}의 피해를 입히고 모든 연참을 소모합니다. <br> 이동 불가 상태일 때에도 사용 가능합니다.`});
 
 
 let classes = 
