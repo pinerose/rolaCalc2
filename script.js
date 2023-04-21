@@ -411,7 +411,7 @@ const selectClass = input =>
 		for (let x in classes.warrior[input])
 		{
 			img = document.createElement('img');
-			img.src = `pictures/skills/warrior/${input}/${classes.warrior[input][x].skillname}.png`;
+			img.src = `pictures/skills/warrior/${input}/${classes.warrior[input][x].skillname}.PNG`;
 			img.id = classes.warrior[input][x].skillname;
 			img.onclick = function() { selectSkill(this.id) };
 			selector('#skillList').appendChild(img);
@@ -425,7 +425,7 @@ const selectClass = input =>
 		for (let x in classes.warrior[input])
 		{
 			img = document.createElement('img');
-			img.src = `pictures/skills/warrior/${input}/${classes.warrior[input][x].skillname}.png`;
+			img.src = `pictures/skills/warrior/${input}/${classes.warrior[input][x].skillname}.PNG`;
 			img.id = classes.warrior[input][x].skillname;
 			img.onclick = function() { selectSkill(this.id) };
 			selector('#skillList').appendChild(img);
