@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>RolaCalc</title>
+	<link rel="stylesheet" href="style.css">
+	<script async src="script.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<nav id="characterInformation">
+			<li id="characterStat" onclick="setInformation('characterStat')">캐릭터 정보 설정</li>
+			<!--<li id="artifact" onclick="setInformation('artifact')">소지 유물 설정</li>-->
+		</nav>
+		<section id="header">
+			<!-- 스탯 정보 입력란 -->
+    		<form id="calculator-form">
+    			<div class="statInformation" id="characterClass">
+    	    		<label for="job">직업군</label>
+    	    		<select id="job" onchange="selectJob(this.value)">
+    	    		    <option value="none">선택 안함</option>
+    	    		    <option value="warrior">워리어</option>
+    	    		    <option value="mage">메이지</option>
+    	    		    <option value="ranger" disabled>레인저</option>
+    	    		</select>
+    	    	</div>
+
+    	    	<div class="statInformation">
+    	    		<label for="stat-combo-value">연참</label>
+    	    		<input value="0" type="number" id="stat-combo-value">
+    	    	</div>
+	
+    	    	<div class="statInformation">
+    	    		<label for="stat-sharpness-value">날카로움</label>
+    	    		<input value="0" type="number" id="stat-sharpness-value">
+    	    	</div>
+	
+    	    	<div class="statInformation">
+    	    		<label for="stat-focus-value">집중</label>
+    	    		<input value="0" type="number" id="stat-focus-value">
+    	    	</div>
+
+    	    	<div class="statInformation">
+    	    		<label for="stat-wound-value">상처</label>
+    	    		<input value="0" type="number" id="stat-wound-value">
+    	    	</div>
+	
+    	    	<div class="statInformation">
+    	    		<label for="stat-attack-value">공격력</label>
+    	    		<input value="0" type="number" id="stat-attack-value">
+    	    	</div>
+	
+    	    	<!-- 계수형 버프 체크란 -->
+
+    	    	<div class="statInformation checkbox">
+    	    		<label for="enhance-buff">강화</label>
+    	    		<input type="checkbox" id="enhance-buff">
+    	    	</div>
+
+    	    	<div class="statInformation checkbox">
+    	    		<label for="super-enhance-buff">상급 강화</label>
+    	    		<input type="checkbox" id="super-enhance-buff">
+    	    	</div>
+
+    	    	<div class="statInformation checkbox">
+    	    		<label for="frenzy-buff">광포화</label>
+    	    		<input type="checkbox" id="frenzy-buff">
+    	    	</div>
+
+    	    	<div class="statInformation checkbox">
+    	    		<label for="critical-hit">치명타</label>
+    	    		<input type="checkbox" id="critical-hit">
+    	    	</div>
+
+    	    	<div class="statInformation checkbox">
+    	    		<label for="defenseless-debuff">무방비</label>
+    	    		<input type="checkbox" id="defenseless-debuff">
+    	    	</div>
+
+    	    	<div class="statInformation checkbox">
+    	    		<label for="enemy-frenzy-buff">적 광포화</label>
+    	    		<input type="checkbox" id="enemy-frenzy-buff">
+    	    	</div>
+
+    	    	<div class="statInformation checkbox">
+		    	    <label for="awakening-buff">깨우침</label>
+		    	    <input type="checkbox" id="awakening-buff">
+    	    	</div>
+
+    	    	<div class="statInformation checkbox">
+		        	<label for="disgust-debuff">역겨움</label>
+		        	<input type="checkbox" id="disgust-debuff">
+    	    	</div>
+
+    	    	<div class="statInformation checkbox">
+    	    		<label for="fainting-debuff">혼절</label>
+    	    		<input type="checkbox" id="fainting-debuff">
+    	    	</div>
+
+    	    	<!-- 방어도 관련 스탯-->
+
+    	    	<div class="statInformation">
+    				<label for="stat-defense-value">방어력</label>
+    				<input value="0" type="number" id="stat-defense-value">
+    	    	</div>
+
+    	    	<div class="statInformation checkbox">
+    				<label for="armor-buff">갑옷</label>
+    				<input type="checkbox" id="armor-buff">
+    			</div>
+
+    			<div class="statInformation checkbox">
+    				<label for="lethargy-debuff">무기력</label>
+    				<input type="checkbox" id="lethargy-debuff">
+    			</div>
+
+    	    	<!-- 입력값 보내기 -->
+    	    	<div class="statDataSubmit">
+    	    		<input type="submit" value="확인">
+    	    	</div>
+    		</form>
+
+    		<div id="presentArtifact">
+    			<nav id="artifactGrade">
+    				<li onclick="selectArtifactGrade('normal')">일반 등급</li>
+    				<li onclick="selectArtifactGrade('uncommon')">희귀 등급</li>
+    				<li onclick="selectArtifactGrade('rare')">레어 등급</li>
+    				<li onclick="selectArtifactGrade('unique')">유니크 등급</li>
+    			</nav>
+    			<div id="artifactList"></div>
+    		</div>
+    		<!--
+    		<div id="presentItem">
+    			<nav id="itemGrade">
+    				<li onclick="selectItemGrade('normal')">일반 등급</li>
+    				<li onclick="selectItemGrade('uncommon')">희귀 등급</li>
+    				<li onclick="selectItemGrade('rare')">레어 등급</li>
+    				<li onclick="selectItemGrade('unique')">유니크 등급</li>
+    				<li onclick="selectItemGrade('others')">기타 등급</li>
+    				<li onclick="selectItemGrade('dinnerEffect')">만찬 효과</li>
+    			</nav>
+    			<div id="itemList"></div>
+    		</div>
+    		-->
+		</section>
+		<section id="skillInformation">
+			<nav id="classList"></nav>
+			<div id="characterSkill">
+				<div id="skillDescription"></div>
+				<div id="skillList"></div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

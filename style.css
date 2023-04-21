@@ -1,0 +1,202 @@
+@charset "utf-8";
+
+li {
+	list-style: none;
+}
+
+body
+{
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	/*background: aliceblue;*/
+	background: rgb(188, 191, 194);
+	text-align: center;
+	font-size: 1.4rem;
+}
+
+#wrap 
+{
+	width: 90%;
+	max-width: 958px;
+	height: 70rem;
+	margin: 0 5%;
+}
+
+nav#characterInformation
+{
+	width: 100%;
+	height: 5%;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-evenly;
+	line-height: 3rem;
+}
+
+	nav#characterInformation li
+	{
+		cursor: pointer;
+		-webkit-user-select: none; /* Safari */
+  		-moz-user-select: none; /* Firefox */
+		-ms-user-select: none; /* IE10+/Edge */
+		user-select: none; /* Standard */
+	}
+
+section#header 
+{
+	width: 100%;
+	height: 13rem;
+	display: flex;
+	flex-flow: row wrap;
+	align-content: space-evenly;
+}
+
+form#calculator-form, div#presentArtifact, div#presentItem
+{
+	width: 100%;
+	height: 100%;
+	display: none;
+	flex-flow: row wrap;
+	justify-content: space-evenly;
+	font-size: 1rem;
+}
+
+form#calculator-form
+{
+	display: flex;
+}
+
+	form#calculator-form div
+	{
+		width: 20%;
+		margin: 0.2rem 0;
+		display: flex;
+		flex-flow: column wrap;
+		justify-content: center;
+		align-items: center;
+	}
+
+		form#calculator-form div *
+		{
+			width: 90%;
+		}
+
+		form#calculator-form div input
+		{
+			width: 50%;
+			text-align: center;
+		}
+
+	form#calculator-form div.statDataSubmit
+	{
+		width: 20%;
+	}
+
+		form#calculator-form div.statDataSubmit input
+		{
+			width: 80%;
+			height: 2rem;
+			font-size: 1rem;
+		}
+
+
+	form#calculator-form div.statInformation
+	{
+		width: 16%;
+	}
+
+	div#presentArtifact nav#artifactGrade, div#presentItem nav#itemGrade
+	{
+		width: 100%;
+		height: 3rem;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-evenly;
+	}
+
+		div#presentArtifact nav#artifactGrade li, div#presentItem nav#itemGrade li{
+			width: 15%;
+			line-height: 2.5rem;
+			cursor: pointer;
+			-webkit-user-select: none; /* Safari */
+  			-moz-user-select: none; /* Firefox */
+			-ms-user-select: none; /* IE10+/Edge */
+			user-select: none; /* Standard */
+		}
+
+	div#presentArtifact div#artifactList, div#presentItem div#itemList
+	{
+		width: 100%;
+		height: calc(100% - 3rem);
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-evenly;
+	}
+
+		div#presentArtifact div#artifactList img, div#presentItem div#itemList img
+		{
+			width: 10%;
+			height: 40%;
+			margin: 0 0.5%;
+		}
+
+section#skillInformation
+{
+	width: 100%;
+	height: 40rem;
+	display: flex;
+	flex-flow: row wrap;
+}
+
+	section#skillInformation nav#classList
+	{
+		width: 100%;
+		height: 3rem;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-evenly;
+	}
+
+		section#skillInformation nav#classList li
+		{
+			width: 14.2%; 
+			height: 100%;
+			margin: 0 %;
+			font-size: 1rem;
+			line-height: 3rem;
+			cursor: pointer
+			-webkit-user-select: none; /* Safari */
+  			-moz-user-select: none; /* Firefox */
+			-ms-user-select: none; /* IE10+/Edge */
+			user-select: none; /* Standard */
+		}
+
+	section#skillInformation div#characterSkill 
+	{
+		width: 100%;
+		height: calc(100% - 5rem);
+	}
+
+		section#skillInformation div#characterSkill div#skillDescription
+		{
+			display: none;
+			flex-flow: row wrap;
+			width: 100%;
+			height: 10rem;
+		}
+
+		section#skillInformation div#characterSkill div#skillList
+		{
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-evenly;
+		}
+
+			section#skillInformation div#characterSkill div#skillList img
+			{
+				width: 5rem;
+				height: 5rem;
+				margin: 0.5rem;
+			}
